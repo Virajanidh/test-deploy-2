@@ -4,10 +4,10 @@ ARG SEBSERVER_VERSION
 ARG GIT_TAG="v${SEBSERVER_VERSION}"
 
 WORKDIR /sebserver
-RUN mkdir seb-server
-COPY ./SEB-Server /sebserver/seb-server
+RUN git clone https://github.com/Virajanidh/seb-server.git
 WORKDIR /sebserver/seb-server/
 RUN echo $(ls)
+
 RUN git rev-parse --short HEAD > commit_hash
 
 FROM maven:latest

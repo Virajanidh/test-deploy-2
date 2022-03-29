@@ -19,6 +19,7 @@ services:
           context: .
           args:
               - SEBSERVER_VERSION=1.2-latest
+      image: demo_seb-client:latest
       container_name: seb-server
       environment:
           - SERVER_PORT=8080
@@ -34,6 +35,18 @@ services:
           - ralph
       depends_on:
           - "mariadb"
+      restart: unless-stopped
+
+  seb-client:
+      build: ./frontend-docker
+      image: demo_seb-server:latest
+      container_name: seb-client
+      ports:
+          - 3000:3000
+      networks:
+          - ralph
+      depends_on:
+          - "seb-server"
       restart: unless-stopped
             
 networks:
